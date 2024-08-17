@@ -1,0 +1,63 @@
+<%- include ./Partials/header.ejs %>
+<div class="w-full min-h-screen bg-zinc-900 px-4 md:px-10 py-8 text-white">
+    <div class="cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-10">
+        <% user.posts.forEach(function(post) { %>
+            <div class="relative group w-full cursor-pointer" onclick="showModal('<%= post.title %>', '<%= post.description %>', '/images/uploads/<%= post.image %>', '<%= user.username %>')">
+                
+                <div class="w-full bg-red-700 rounded-lg overflow-hidden relative">
+                    <img class="w-full h-40 md:h-48 lg:h-96 object-cover" src="/images/uploads/<%= post.image %>" alt="<%= post.title %>">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
+                        <div class=" text-white w-full h-full relative">
+                            <h6 class=" absolute text-lg bg-transparent font-bold top-2 ml-2"><%= post.title %></h6>
+                            <a class=" inline-block absolute text-lg bg-transparent font-bold top-2 right-2" href=""><i class="ri-delete-bin-6-line"></i></a>
+                            <button onclick="sendPostRequest('/delete/<%= post._id %>')" class="absolute w-8 h-8 rounded-full top-1 right-1 bg-zinc-700 flex items-center justify-center z-10">
+                                <i class="ri-delete-bin-6-line"></i>
+                            </button>
+                            <h6 class="absolute text-sm w-full font-bold bottom-2 left-2">@<%= user.username %></h6>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<!-- post modal -->
+<div id="postModal" class="text-white fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-zinc-800 rounded-lg w-full max-w-2xl p-4 md:p-6 mx-2 md:mx-4 lg:mx-0">
+        <div class="flex justify-between items-center">
+            <h2 class="text-xl md:text-2xl font-semibold" id="modalTitle"></h2>
+            <button class="text-3xl md:text-5xl" onclick="closeModal()"> &times;</button>
+        </div>
+        <div class="mt-4 overflow-hidden rounded-lg">
+            <img id="modalImage" class="w-full h-auto max-h-64 md:max-h-96 object-contain rounded-lg" src="" alt="">
+        </div>
+        <p class="mt-4 text-sm md:text-base" id="modalDescription"></p>
+        <p class="mt-1 text-xs md:text-sm opacity-75" id="modalUsername"></p>
+    </div>
+</div>
+
+<script>
+    function showModal(title, description, image, username) {
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalDescription').textContent = description;
+        document.getElementById('modalImage').src = image;
+        document.getElementById('modalUsername').textContent = '@' + username;
+        document.getElementById('postModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('postModal').classList.add('hidden');
+    }
+
+    function sendPostRequest(route) {
+        let form = document.createElement('form');
+        form.method = 'post';
+        form.action = route;
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+<%- include ./Partials/footer.ejs %>

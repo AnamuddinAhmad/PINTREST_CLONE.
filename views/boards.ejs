@@ -1,0 +1,30 @@
+<%- include ./Partials/header.ejs %>
+<div class="bg-zinc-900 h-screen w-full text-white px-12 py-6 flex flex-wrap gap-10">
+    <% if (boardPost.length > 0) { %>
+        <% boardPost.forEach((board) => { %>
+            <div class="relative group w-52 h-72 bg-zinc-700 rounded-md overflow-hidden">
+                <img class="w-full h-full object-cover" src="/images/uploads/<%= board.image %>" alt="<%= board.title %>">
+                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div class=" text-white w-full h-full relative">
+                        <h6 class=" absolute text-lg bg-transparent font-bold top-2 ml-2"><%= board.title %></h6>
+                        <a class=" inline-block absolute text-lg bg-transparent font-bold top-2 right-2 cursor-pointer" onclick="sendPostRequest('/boards/<%=board._id%>' )"><i class="ri-delete-bin-6-line"></i></a>
+                        <h6 class="absolute text-sm w-full font-bold bottom-2 left-2">@<%= user.name %></h6>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <h1>No Boards.</h1>
+    <% } %>
+</div>
+<%- include ./Partials/footer.ejs %>
+
+<script>
+    function sendPostRequest(path){
+        let form = document.createElement('form');
+        form.action=path;
+        form.method='post';
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>

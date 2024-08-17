@@ -1,0 +1,68 @@
+*{
+  margin: 0%;
+  padding: 0%;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+html,body{
+  height: 100%;
+  width: 100%;
+}
+
+/* Hide scrollbars but allow scrolling */
+html {
+  overflow: -moz-scrollbars-none; /* Firefox */
+  scrollbar-width: none; /* Firefox */
+}
+
+body {
+  overflow: auto; /* Allow scrolling */
+  overflow-x: hidden; /* Hide horizontal scrollbar if not needed */
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+body::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar */
+}
+
+
+/* Flash message container */
+.flash-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  min-width: 200px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+/* Success message styling */
+.flash-message-success {
+  background-color: #4caf50; /* Green */
+}
+
+/* Error message styling */
+.flash-message-error {
+  background-color: #f44336; /* Red */
+}
+
+/* Animation for flash message to slide in */
+.flash-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animation for flash message to fade out */
+.flash-message.hide {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+
+

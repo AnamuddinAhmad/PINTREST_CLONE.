@@ -1,0 +1,45 @@
+<!-- Footer -->
+<footer class="bg-zinc-900 text-white py-5">
+    <div class="flex justify-center space-x-6">
+        <a href="https://www.instagram.com/official_anam_ali/" target="_blank" class="text-xl">
+            <i class="ri-instagram-line"></i>
+        </a>
+        <a href="https://github.com/anamuddinahmad" target="_blank" class="text-xl">
+            <i class="ri-github-line"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/anamuddinahmad/" target="_blank" class="text-xl">
+            <i class="ri-linkedin-line"></i>
+        </a>
+    </div>
+</footer>
+
+<script>
+    // Toggle the mobile menu
+    document.getElementById('hamburger').addEventListener('click', function () {
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.remove('hidden');
+        } else {
+            mobileMenu.classList.add('hidden');
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const flashMessages = document.querySelectorAll(".flash-message");
+
+        flashMessages.forEach((message) => {
+            setTimeout(() => {
+                message.classList.add("hide");
+                setTimeout(() => {
+                    message.remove();
+                }, 500); // Matches the CSS transition duration for smooth removal
+            }, 3000); // Flash message will be visible for 3 seconds
+        });
+
+    });
+
+
+</script>
+</body>
+
+</html>

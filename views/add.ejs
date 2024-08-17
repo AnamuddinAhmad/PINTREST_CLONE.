@@ -1,0 +1,43 @@
+<%- include ./Partials/header.ejs %>
+
+<div class="w-full min-h-screen bg-zinc-900 px-4 sm:px-10 py-5">
+    <h1 class="text-lg sm:text-xl text-white">Create a new post</h1>
+    <hr class="opacity-10 mt-3">
+    <form action="/createpost" method="post" enctype="multipart/form-data" class="mt-5 flex flex-col lg:flex-row gap-4">
+        <div class="flex-[0.5]">
+            <input id="postImage" class="text-white block w-full px-3 py-2 mt-3 bg-zinc-800 rounded-md focus:outline-none" 
+                   type="file" name="postimage" accept="image/*">
+            <input class="block w-full px-3 py-2 mt-3 rounded-md border-0 bg-zinc-800 text-white focus:outline-none"  
+                   type="text" placeholder="Title" name="title">
+            <textarea class="block w-full px-3 py-2 h-40 mt-3 rounded-md border-0 bg-zinc-800 text-white resize-none focus:outline-none" 
+                      placeholder="Description" name="description"></textarea>
+            <input class="block w-full px-3 py-2 mt-3 rounded-md bg-red-700 text-white cursor-pointer hover:bg-red-600 transition-colors" 
+                   type="submit" value="Create Post">
+        </div>
+        <div class="flex-none w-full lg:w-1/3">
+            <img id="imagePreview" class="w-full rounded-md hidden" alt="Image Preview">
+        </div>
+    </form>
+</div>
+
+<%- include ./Partials/footer.ejs %>
+
+<script>
+    document.getElementById('postImage').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('imagePreview');
+        
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+            }
+            
+            reader.readAsDataURL(file);
+        } else {
+            preview.classList.add('hidden');
+        }
+    });
+</script>

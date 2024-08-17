@@ -1,0 +1,77 @@
+<%- include ./Partials/header.ejs %>
+
+<div class="profile text-white w-full min-h-screen bg-zinc-900 pt-1">
+  <form id="uploadform" hidden action="/fileupload" method="post" enctype="multipart/form-data">
+    <input type="file" name="image">
+  </form>
+  <div class="profdets flex flex-col items-center pt-10 px-4 sm:px-6">
+    <div class="relative">
+      <div id="uploadicon"
+        class="absolute w-8 h-8 sm:w-10 sm:h-10 rounded-full bottom-0 right-0 bg-zinc-700 flex items-center justify-center">
+        <i class="ri-pencil-line"></i>
+      </div>
+      <div class="w-24 h-24 sm:w-32 sm:h-32 bg-zinc-800 rounded-full overflow-hidden">
+        <img class="w-full h-full object-cover" src="/images/uploads/<%= user.profileImage %>" alt="">
+      </div>
+    </div>
+    <h1 class="text-2xl sm:text-3xl font-semibold mt-5 text-center">
+      <%= user.name %>
+    </h1>
+    <h3 class="text-sm sm:text-md text-center">@<%= user.username %></h3>
+    <div class="flex flex-col sm:flex-row gap-3 mt-5">
+      <a href="/edit" class="px-6 sm:px-10 py-3 bg-zinc-700 rounded-full text-xs sm:text-sm font-semibold text-center">Edit</a>
+      <a href="/add" class="px-6 sm:px-10 py-3 rounded-lg bg-red-700 text-xs sm:text-sm font-semibold text-center">Add New Post</a>
+    </div>
+  </div>
+  <div class="cards flex flex-col sm:flex-row sm:flex-wrap gap-6 px-4 sm:px-10 mt-10">
+    <div class="cards mb-6">
+      <%if(user.posts.length>0){%>
+        <div class="w-full sm:w-52 rounded-lg bg-zinc-200">
+          <img class="w-full h-48 sm:h-full rounded-lg overflow-hidden object-cover"
+            src="/images/uploads/<%= user?.posts[0]?.image%>" alt="User Pins">
+        </div>
+        <a href="/show/posts" class="inline-block text-lg sm:text-xl font-semibold mt-3">Your Uploaded Posts</a>
+        <h5 class="text-sm font-md opacity-60">
+          <%=user.posts.length%> Pin's
+        </h5>
+        <%}else{%>
+          <div class="mb-6 bg-zinc-700 rounded-md">
+            <h1 class="text-lg sm:text-xl font-semibold px-4 py-16 sm:px-6 sm:py-24">No Post's</h1>
+            <h5 class="text-sm font-md opacity-60 px-2 py-2">
+              <%=user.posts.length%> Pin's
+            </h5>
+          </div>
+          <%}%>
+    </div>
+    <div class="cards mb-6">
+      <%if(user.boards.length>0){%>
+        <div class="w-full sm:w-52 rounded-lg bg-zinc-200">
+          <img class="w-full h-48 sm:h-full rounded-lg overflow-hidden object-cover"
+            src="/images/uploads/<%= firstPost?.image%>" alt="">
+        </div>
+        <a href="/show/boards" class="inline-block text-lg sm:text-xl font-semibold mt-3">Your Boards</a>
+        <h5 class="text-sm font-md opacity-60">
+          <%=user.boards.length%> Board's
+        </h5>
+        <%}else{%>
+          <div class="mb-6 bg-zinc-700 rounded-md">
+            <h1 class="text-lg sm:text-xl font-semibold px-4 py-16 sm:px-6 sm:py-24">No Board's</h1>
+            <h5 class="text-sm font-md opacity-60 px-2 py-2">
+              <%=user.boards.length%> Board's
+            </h5>
+          </div>
+          <%}%>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelector("#uploadicon").addEventListener("click", () => {
+    document.querySelector("#uploadform input").click();
+  });
+  document.querySelector("#uploadform input").addEventListener("change", () => {
+    document.querySelector("#uploadform").submit();
+  });
+</script>
+
+<%- include ./Partials/footer.ejs %>
